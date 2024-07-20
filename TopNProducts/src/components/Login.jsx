@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 
 const Login = () => {
@@ -7,7 +6,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Handle login logic here
   };
 
   return (

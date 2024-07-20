@@ -1,7 +1,7 @@
 // src/components/ProductDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import getProducts from '../services/api';
 
 const ProductDetail = () => {
   const { name } = useParams();
@@ -9,10 +9,13 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await axios.get(/api/products, {
-        params: { name }
-      });
-      setProduct(response.data);
+      try {
+        const response = await getProducts({ company: 'AMZ', category: 'Laptop', top: 10, minPrice: 1, maxPrice: 10000 });
+        const productData = response.data.find(product => product.name === name);
+        setProduct(productData);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
     };
     fetchProduct();
   }, [name]);
